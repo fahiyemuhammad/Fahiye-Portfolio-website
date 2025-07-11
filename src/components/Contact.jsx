@@ -20,7 +20,6 @@ const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setForm({
       ...form,
       [name]: value,
@@ -47,24 +46,17 @@ const Contact = () => {
       .then(
         () => {
           setLoading(false);
-
           Swal.fire({
             icon: "success",
             title: "Message Sent!",
             text: "Thank you for reaching out. I’ll get back to you soon.",
             confirmButtonColor: "#6366F1",
           });
-
-          setForm({
-            name: "",
-            email: "",
-            message: "",
-          });
+          setForm({ name: "", email: "", message: "" });
         },
         (error) => {
           setLoading(false);
           console.error(error);
-
           Swal.fire({
             icon: "error",
             title: "Oops!",
@@ -129,7 +121,33 @@ const Contact = () => {
             type="submit"
             className="bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary"
           >
-            {loading ? "Sending..." : "Send"}
+            {loading ? (
+              <div className="flex items-center gap-2">
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  ></path>
+                </svg>
+                Sending...
+              </div>
+            ) : (
+              "Send"
+            )}
           </button>
         </form>
       </motion.div>
